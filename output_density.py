@@ -60,3 +60,4 @@ for D in D_values:
     plt.savefig('figures/output_density{}.png'.format(ii))
 
     ii+=1
+    
