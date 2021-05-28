@@ -30,13 +30,16 @@ h_r = H_G - H_B
 
 F_rc = (2/3)**(3/2)
 
-if H_G < H_S - K*q**(2/3)/gp**(1/3):
-    h_c = H_S - K*q**(2/3)/gp**(1/3) - H_B
-else:
-    h_c = H_S + K*q**(2/3)/gp**(1/3) - H_B
+#if H_G < H_S - K*q**(2/3)/gp**(1/3):
+#    h_c = H_S - K*q**(2/3)/gp**(1/3) - H_B
+#else:
+#    h_c = H_S + K*q**(2/3)/gp**(1/3) - H_B
 
 h_r = np.linspace(0.01,H,100)
-lam = 0.5
+lam = 0.4
+h_c = (2/3)*h_r
+print(np.where(h_r/H<2/3))
+
 F_r = (H/h_r)**(3/2) * (1+lam/(1-lam)) * ( (lam/(1-lam))**2/(1-h_c/H)**3 + 1/(h_c/H)**3 )**(-1/2)
 F_rmax = (H/h_r)**(5/2)*(1+np.sqrt(H/h_r - 1))**(-2)
 
@@ -49,20 +52,5 @@ plt.title('Jirka figure 4')
 plt.gca().axvline(F_rc, color='black')
 plt.plot(F_rmax, h_r/H, '--', label='$F_rmax')
 plt.plot(F_r, h_r/H, '--r')
-
-
-
-
-g = 9.81 # [m s^-2] gravitatieversnelling
-rho_1 = 1000 # [kg m^-3] dichtheid zoet water
-rho_2 = 1022 # [kg m^-3] dichtheid zout water
-Drho = rho_2 - rho_1 # [kg m^-3] dichtheidsverschil
-gp = 2*g*Drho / (rho_2+rho_1)
-
-H = 23
-h_r = 0.5*H
-for q in np.linspace(0,5,6):
-    Fr = q/np.sqrt(gp*h_r**3)
-    plt.plot(Fr, h_r/H, 'r.')
 
 plt.savefig('figures/jirka_fig4.png', bbox_inches='tight')
